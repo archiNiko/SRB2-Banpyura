@@ -1045,6 +1045,7 @@ static menuitem_t OP_MainMenu[] =
 	{IT_SUBMENU | IT_STRING, NULL, "Data Options...",      &OP_DataOptionsDef, 100},
 
 	{IT_SUBMENU | IT_STRING, NULL, "\x81""Banpyura Options...",   &OP_BanpyuraOptionsDef,120},
+	{IT_SUBMENU | IT_STRING, NULL, "\x81""BlendKitty's Cooler Options... >:3",   &OP_BanpyuraOptionsDef,120},
 	{IT_STRING|IT_CALL,      NULL, "Report an Issue",   M_BanpyuraReportIssue, 130}
 };
 
