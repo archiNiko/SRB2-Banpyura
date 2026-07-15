@@ -351,6 +351,9 @@ static void M_EraseData(INT32 choice);
 menu_t OP_BanpyuraOptionsDef, OP_P1BanpyuraOptionsDef, OP_P2BanpyuraOptionsDef;
 static void M_BanpyuraReportIssue();
 
+//BlendKitty's Cooler Options >:3
+menu_t OP_BlendKittyOptionsDef;
+
 static void M_Addons(INT32 choice);
 static void M_AddonsOptions(INT32 choice);
 static patch_t *addonsp[NUM_EXT+5];
@@ -1045,8 +1048,8 @@ static menuitem_t OP_MainMenu[] =
 	{IT_SUBMENU | IT_STRING, NULL, "Data Options...",      &OP_DataOptionsDef, 100},
 
 	{IT_SUBMENU | IT_STRING, NULL, "\x81""Banpyura Options...",   &OP_BanpyuraOptionsDef,120},
-	{IT_SUBMENU | IT_STRING, NULL, "\x81""BlendKitty's Cooler Options... >:3",   &OP_BanpyuraOptionsDef,120},
-	{IT_STRING|IT_CALL,      NULL, "Report an Issue",   M_BanpyuraReportIssue, 130}
+	{IT_SUBMENU | IT_STRING, NULL, "\x81""BlendKitty's Cooler Options... >:3",   &OP_BlendKittyOptionsDef,130},
+	{IT_STRING|IT_CALL,      NULL, "Report an Issue",   M_BanpyuraReportIssue, 140}
 };
 
 static menuitem_t OP_P1ControlsMenu[] =
