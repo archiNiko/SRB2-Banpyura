@@ -353,6 +353,7 @@ static void M_BanpyuraReportIssue();
 
 //BlendKitty's Cooler Options >:3
 menu_t OP_BlendKittyOptionsDef;
+static void M_BlendKittyOpenWebsite();
 
 static void M_Addons(INT32 choice);
 static void M_AddonsOptions(INT32 choice);
@@ -1048,8 +1049,10 @@ static menuitem_t OP_MainMenu[] =
 	{IT_SUBMENU | IT_STRING, NULL, "Data Options...",      &OP_DataOptionsDef, 100},
 
 	{IT_SUBMENU | IT_STRING, NULL, "\x81""Banpyura Options...",   &OP_BanpyuraOptionsDef,120},
-	{IT_SUBMENU | IT_STRING, NULL, "\x81""BlendKitty's Cooler Options... >:3",   &OP_BlendKittyOptionsDef,130},
-	{IT_STRING|IT_CALL,      NULL, "Report an Issue",   M_BanpyuraReportIssue, 140}
+	{IT_STRING|IT_CALL,      NULL, "Report an Issue",   M_BanpyuraReportIssue, 130},
+
+	{IT_SUBMENU | IT_STRING, NULL, "\x88""BlendKitty's Cooler Options... >:3",   &OP_BlendKittyOptionsDef,150},
+	{IT_STRING|IT_CALL,      NULL, "\x88""Open BlendKitty's Website!",   M_BlendKittyOpenWebsite, 160}
 };
 
 static menuitem_t OP_P1ControlsMenu[] =
@@ -1576,6 +1579,34 @@ static menuitem_t OP_P2BanpyuraOptionsMenu[] =
 };
 
 //End of Banpyura Options
+// And the start of BlendKitty's cooler options!!! (it's literally just the same thing right now.)
+
+static menuitem_t OP_BlendKittyOptionsMenu[] =
+{
+	{IT_HEADER, 				NULL, "Heads-Up Display", 			            NULL,		   0},
+	{IT_STRING | IT_CVAR,		NULL, "Screen Fades",       			   &cv_wipes,          6},
+	{IT_STRING | IT_CVAR,		NULL, "Screen Flashes",       			 &cv_flashes,          11},
+	{IT_STRING | IT_CVAR,		NULL, "Uppercase Menus",       			&cv_menucaps,          16},
+	{IT_STRING | IT_CVAR,		NULL, "Menu Text Color",       	       &cv_menucolor,          21},
+	{IT_STRING | IT_CVAR,		NULL, "Menu Background Color",       &cv_menubgcolor,          26},
+
+	{IT_HEADER, 				NULL, "Chat Tweaks", 			            	NULL,		   36},
+	{IT_STRING | IT_CVAR,		NULL, "Horizontal Snap",       	  	   &cv_chatsnapx,          42},
+	{IT_STRING | IT_CVAR,		NULL, "Vertical Snap",       	  	   &cv_chatsnapy,          47},
+	{IT_STRING | IT_CVAR | IT_CV_SLIDER, NULL, "Horizontal Position",      &cv_chatx,          52},
+	{IT_STRING | IT_CVAR | IT_CV_SLIDER, NULL, "Vertical Position",    	   &cv_chaty,          57},
+	{IT_STRING | IT_CVAR,		NULL, "Show Char. Limit",         &cv_chat_showlimit,          62},
+	{IT_STRING | IT_CVAR,		NULL, "Clear Input text on Exit",&cv_chat_clearonexit,         67},
+	{IT_STRING | IT_CVAR,		NULL, "Chat Cursor",                  &cv_chatcursor,          72},
+	{IT_STRING | IT_CVAR,		 NULL, "Chat Opacity",			&cv_chatopacity,	77},
+
+	{IT_HEADER, 				NULL, "Network", 			            		NULL,		   87},
+	{IT_STRING | IT_CVAR,		NULL, "Minimum Delay",       		    &cv_mindelay,          93},
+	{IT_STRING | IT_CVAR,		NULL, "Gentlemen's Delay",       	  &cv_gentlemens,          98},
+
+	{IT_HEADER, 				NULL, "Rendering (OpenGL)", 			        NULL,		   108},
+	{IT_STRING|IT_CVAR,         NULL, "Light Dithering",     	   &cv_gllightdither,          114},
+};
 
 static menuitem_t OP_ScreenshotOptionsMenu[] =
 {
@@ -2294,6 +2325,11 @@ menu_t OP_P1BanpyuraOptionsDef = DEFAULTSCROLLMENUSTYLE( //Player 1
 menu_t OP_P2BanpyuraOptionsDef = DEFAULTSCROLLMENUSTYLE( //Player 2
 	MTREE3(MN_OP_MAIN, MN_OP_P2CONTROLS, MN_OP_P2BPYURA),
 	"M_CONTRO", OP_P2BanpyuraOptionsMenu, &OP_P2ControlsDef, 30, 30);
+
+//BlendKitty Options
+menu_t OP_NlendKittyOptionsDef = DEFAULTSCROLLMENUSTYLE(
+	MTREE2(MN_OP_MAIN, MN_OP_BPYURA),
+	"M_OPTTTL", OP_BlendKittyOptionsMenu, &OP_MainDef, 30, 30);
 
 menu_t OP_ScreenshotOptionsDef =
 {
@@ -13284,6 +13320,17 @@ static void M_BanpyuraReportIssue()
 	SDL_OpenURL("https://github.com/GLideKS/SRB2-Banpyura/issues");
 #else
 	M_StartMessage(M_GetText("Open the following in your web browser:\ngithub.com/GLideKS/SRB2-Banpyura/issues\n\n(Press a key)\n"), NULL, MM_NOTHING);
+#endif
+#endif
+}
+
+static void M_BlendKittyOpenWebsite()
+{
+#if defined(HAVE_SDL)
+#if SDL_VERSION_ATLEAST(2,0,14)
+	SDL_OpenURL("https://supersonic923.neocities.org");
+#else
+	M_StartMessage(M_GetText("Open the following in your web browser:\nhttps://supersonic923.neocities.org\n\n(Press a key)\n"), NULL, MM_NOTHING);
 #endif
 #endif
 }
