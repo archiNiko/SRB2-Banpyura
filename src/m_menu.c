@@ -1037,22 +1037,22 @@ static menuitem_t MP_PlayerSetupMenu[] =
 // Prefix: OP_
 static menuitem_t OP_MainMenu[] =
 {
-	{IT_SUBMENU | IT_STRING, NULL, "Player 1 Controls...", &OP_P1ControlsDef,   10},
-	{IT_SUBMENU | IT_STRING, NULL, "Player 2 Controls...", &OP_P2ControlsDef,   20},
-	{IT_CVAR    | IT_STRING, NULL, "Controls per key",     &cv_controlperkey,   30},
+	{IT_SUBMENU | IT_STRING, NULL, "Player 1 Controls...", &OP_P1ControlsDef,   0},
+	{IT_SUBMENU | IT_STRING, NULL, "Player 2 Controls...", &OP_P2ControlsDef,   10},
+	{IT_CVAR    | IT_STRING, NULL, "Controls per key",     &cv_controlperkey,   20},
 
-	{IT_CALL    | IT_STRING, NULL, "Video Options...",     M_VideoOptions,      50},
-	{IT_SUBMENU | IT_STRING, NULL, "Sound Options...",     &OP_SoundOptionsDef, 60},
+	{IT_CALL    | IT_STRING, NULL, "Video Options...",     M_VideoOptions,      40},
+	{IT_SUBMENU | IT_STRING, NULL, "Sound Options...",     &OP_SoundOptionsDef, 50},
 
-	{IT_CALL    | IT_STRING, NULL, "Server Options...",    M_ServerOptions,     80},
+	{IT_CALL    | IT_STRING, NULL, "Server Options...",    M_ServerOptions,     70},
 
-	{IT_SUBMENU | IT_STRING, NULL, "Data Options...",      &OP_DataOptionsDef, 100},
+	{IT_SUBMENU | IT_STRING, NULL, "Data Options...",      &OP_DataOptionsDef, 90},
 
-	{IT_SUBMENU | IT_STRING, NULL, "\x81""Banpyura Options...",   &OP_BanpyuraOptionsDef,120},
-	{IT_STRING|IT_CALL,      NULL, "Report an Issue",   M_BanpyuraReportIssue, 130},
+	{IT_SUBMENU | IT_STRING, NULL, "\x81""Banpyura Options...",   &OP_BanpyuraOptionsDef,110},
+	{IT_STRING|IT_CALL,      NULL, "Report an Issue",   M_BanpyuraReportIssue, 120},
 
-	{IT_SUBMENU | IT_STRING, NULL, "\x88""BlendKitty's Cooler Options... >:3",   &OP_BlendKittyOptionsDef,150},
-	{IT_STRING|IT_CALL,      NULL, "\x88""Open BlendKitty's Website!",   M_BlendKittyOpenWebsite, 160}
+	{IT_SUBMENU | IT_STRING, NULL, "\x88""BlendKitty's Cooler Options... >:3",   &OP_BlendKittyOptionsDef,140},
+	{IT_STRING|IT_CALL,      NULL, "\x88""Open BlendKitty's Website!",   M_BlendKittyOpenWebsite, 150}
 };
 
 static menuitem_t OP_P1ControlsMenu[] =
