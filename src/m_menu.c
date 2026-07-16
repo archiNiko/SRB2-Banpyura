@@ -1579,33 +1579,12 @@ static menuitem_t OP_P2BanpyuraOptionsMenu[] =
 };
 
 //End of Banpyura Options
-// And the start of BlendKitty's cooler options!!! (it's literally just the same thing right now.)
+// And the start of BlendKitty's cooler options!!! (it's literally just nothing	 right now.)
 
 static menuitem_t OP_BlendKittyOptionsMenu[] =
 {
-	{IT_HEADER, 				NULL, "Heads-Up Display", 			            NULL,		   0},
-	{IT_STRING | IT_CVAR,		NULL, "Screen Fades",       			   &cv_wipes,          6},
-	{IT_STRING | IT_CVAR,		NULL, "Screen Flashes",       			 &cv_flashes,          11},
-	{IT_STRING | IT_CVAR,		NULL, "Uppercase Menus",       			&cv_menucaps,          16},
-	{IT_STRING | IT_CVAR,		NULL, "Menu Text Color",       	       &cv_menucolor,          21},
-	{IT_STRING | IT_CVAR,		NULL, "Menu Background Color",       &cv_menubgcolor,          26},
-
-	{IT_HEADER, 				NULL, "Chat Tweaks", 			            	NULL,		   36},
-	{IT_STRING | IT_CVAR,		NULL, "Horizontal Snap",       	  	   &cv_chatsnapx,          42},
-	{IT_STRING | IT_CVAR,		NULL, "Vertical Snap",       	  	   &cv_chatsnapy,          47},
-	{IT_STRING | IT_CVAR | IT_CV_SLIDER, NULL, "Horizontal Position",      &cv_chatx,          52},
-	{IT_STRING | IT_CVAR | IT_CV_SLIDER, NULL, "Vertical Position",    	   &cv_chaty,          57},
-	{IT_STRING | IT_CVAR,		NULL, "Show Char. Limit",         &cv_chat_showlimit,          62},
-	{IT_STRING | IT_CVAR,		NULL, "Clear Input text on Exit",&cv_chat_clearonexit,         67},
-	{IT_STRING | IT_CVAR,		NULL, "Chat Cursor",                  &cv_chatcursor,          72},
-	{IT_STRING | IT_CVAR,		 NULL, "Chat Opacity",			&cv_chatopacity,	77},
-
-	{IT_HEADER, 				NULL, "Network", 			            		NULL,		   87},
-	{IT_STRING | IT_CVAR,		NULL, "Minimum Delay",       		    &cv_mindelay,          93},
-	{IT_STRING | IT_CVAR,		NULL, "Gentlemen's Delay",       	  &cv_gentlemens,          98},
-
-	{IT_HEADER, 				NULL, "Rendering (OpenGL)", 			        NULL,		   108},
-	{IT_STRING|IT_CVAR,         NULL, "Light Dithering",     	   &cv_gllightdither,          114},
+	{IT_HEADER, 				NULL, "Heads-Up Display", 			            NULL,		    0},
+	{IT_STRING | IT_CVAR,		NULL, "Ring Slinger Ammo Display",         &cv_wipes,           6},
 };
 
 static menuitem_t OP_ScreenshotOptionsMenu[] =
@@ -2327,7 +2306,7 @@ menu_t OP_P2BanpyuraOptionsDef = DEFAULTSCROLLMENUSTYLE( //Player 2
 	"M_CONTRO", OP_P2BanpyuraOptionsMenu, &OP_P2ControlsDef, 30, 30);
 
 //BlendKitty Options
-menu_t OP_NlendKittyOptionsDef = DEFAULTSCROLLMENUSTYLE(
+menu_t OP_BlendKittyOptionsDef = DEFAULTSCROLLMENUSTYLE(
 	MTREE2(MN_OP_MAIN, MN_OP_BPYURA),
 	"M_OPTTTL", OP_BlendKittyOptionsMenu, &OP_MainDef, 30, 30);
 
