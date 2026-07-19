@@ -1940,7 +1940,7 @@ static inline void HU_DrawCrosshairs(void)
 
 	if (cv_rsammodisplay.value == true)
 	{
-		V_DrawFill(0, 0, BASEVIDWIDTH, BASEVIDHEIGHT, 0);
+		V_DrawFill(1, 26, 318, 1, 0); //Draw a horizontal line because it looks nice!
 	}
 }
 
