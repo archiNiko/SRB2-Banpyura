@@ -1938,9 +1938,11 @@ static inline void HU_DrawCrosshairs(void)
 	if (!players[secondarydisplayplayer].spectator && (!camera2.chase || ticcmd_ztargetfocus[1]) && cross2 && splitscreen)
 		V_DrawStretchyFixedPatch((BASEVIDWIDTH/2)<<FRACBITS, (BASEVIDHEIGHT/2)<<FRACBITS, FRACUNIT, 2*FRACUNIT, V_PERPLAYER|(cv_crosshair2_invert.value ? V_SUBTRACT : V_TRANSLUCENT), crosshair[cross2 - 1], cv_crosshair_invert.value ? R_GetTranslationColormap(TC_ALLWHITE, SKINCOLOR_WHITE, GTC_CACHE) : NULL);
 
-	if (cv_rsammodisplay.value == true)
+	if (!players[displayplayer].spectator && (!camera.chase || ticcmd_ztargetfocus[0]) && cv_rsammodisplay.value == true && G_RingSlingerGametype())
 	{
-		V_DrawFill(1, 26, 318, 1, 0); //Draw a horizontal line because it looks nice!
+		V_DrawFill(BASEVIDWIDTH/4 + 1, BASEVIDHEIGHT/2 + 11, BASEVIDWIDTH/2, 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
+		V_DrawFill(BASEVIDWIDTH/4, BASEVIDHEIGHT/2 + 10, BASEVIDWIDTH/2, 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
+
 	}
 }
 
