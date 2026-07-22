@@ -1584,7 +1584,7 @@ static menuitem_t OP_P2BanpyuraOptionsMenu[] =
 static menuitem_t OP_BlendKittyOptionsMenu[] =
 {
 	{IT_HEADER, 				NULL, "Heads-Up Display", 			       NULL,		        0},
-	{IT_STRING | IT_CVAR,		NULL, "Ring Slinger Ammo Display",         &cv_rsammodisplay,   6},
+	{IT_STRING | IT_CVAR,		NULL, "Ring Slinger Ammo Bar",         &cv_rsammodisplay,   6},
 };
 
 static menuitem_t OP_ScreenshotOptionsMenu[] =

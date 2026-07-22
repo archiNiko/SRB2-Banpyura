@@ -143,6 +143,10 @@ static CV_PossibleValue_t menubg_cons_t[] = {
 	{238, "Brown"}, {251, "Beige"}, {0, NULL}
 };
 
+static CV_PossibleValue_t rsammodisplay_cons_t[] = {
+	{1, "Bar"}, {2, "Fill"}, {0, "Off"}, {0, NULL}
+};
+
 static void R_SetFov(fixed_t playerfov);
 
 static void Fov_OnChange(void);
@@ -166,7 +170,7 @@ consvar_t cv_allowmlook = CVAR_INIT ("allowmlook", "Yes", CV_NETVAR|CV_ALLOWLUA,
 consvar_t cv_showhud = CVAR_INIT ("showhud", "Yes", CV_CALL|CV_ALLOWLUA,  CV_YesNo, R_SetViewSize);
 consvar_t cv_translucenthud = CVAR_INIT ("translucenthud", "10", CV_SAVE, translucenthud_cons_t, NULL);
 consvar_t cv_moviemodeinfo = CVAR_INIT ("moviemodeinfo", "Yes", CV_ALLOWLUA|CV_CLIENT,  CV_YesNo, NULL);
-consvar_t cv_rsammodisplay = CVAR_INIT ("rsammodisplay", "On", CV_SAVE|CV_CLIENT, CV_OnOff, NULL);
+consvar_t cv_rsammodisplay = CVAR_INIT ("rsammodisplay", "Bar", CV_SAVE|CV_CLIENT, rsammodisplay_cons_t, NULL);
 
 consvar_t cv_translucency = CVAR_INIT ("translucency", "On", CV_SAVE, CV_OnOff, NULL);
 consvar_t cv_drawdist = CVAR_INIT ("drawdist", "Infinite", CV_SAVE, drawdist_cons_t, NULL);
