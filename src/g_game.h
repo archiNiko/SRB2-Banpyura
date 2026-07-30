@@ -87,6 +87,8 @@ extern consvar_t cv_cam_shiftfacing[2], cv_cam_turnfacing[2],
 
 extern consvar_t cv_wipes;
 
+extern consvar_t cv_rsammodisplay;
+
 typedef enum
 {
 	LOCK_BOSS = 1<<0,

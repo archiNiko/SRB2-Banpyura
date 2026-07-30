@@ -830,6 +830,7 @@ void D_RegisterClientCommands(void)
 	CV_RegisterVar(&cv_crosshair2);
 	CV_RegisterVar(&cv_crosshair_invert);
 	CV_RegisterVar(&cv_crosshair2_invert);
+	CV_RegisterVar(&cv_rsammodisplay);
 	CV_RegisterVar(&cv_alwaysfreelook);
 	CV_RegisterVar(&cv_alwaysfreelook2);
 	CV_RegisterVar(&cv_chasefreelook);
