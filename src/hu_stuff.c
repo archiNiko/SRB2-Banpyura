@@ -1938,8 +1938,8 @@ static inline void HU_DrawCrosshairs(void)
 {
 	INT32 cross1 = cv_crosshair.value & 3;
 	INT32 cross2 = cv_crosshair2.value & 3;
-    	fixed_t progress = 0;
-    	fixed_t progressrings = 0;
+    fixed_t progress = 0;
+    fixed_t progressrings = 0;
 
 	if (automapactive || demoplayback)
 		return;
