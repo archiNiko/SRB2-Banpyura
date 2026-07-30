@@ -1968,8 +1968,8 @@ static inline void HU_DrawCrosshairs(void)
 
                 if (!isemptyinfring) // red ring counter
                 {
-                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 15, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Shadow
-                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 14, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 14, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Shadow
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 15, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
                 }
                 break;
             case 2:
@@ -1978,8 +1978,8 @@ static inline void HU_DrawCrosshairs(void)
 
                 if (!isemptyinfring) // red ring counter
                 {
-                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 13, FixedMul(progressrings, BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Shadow
-                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 14, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 14, FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Shadow
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 15, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
                 }
                 break;
             default:
