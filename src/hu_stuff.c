@@ -1918,6 +1918,18 @@ static void HU_DrawChat_Old(void)
 	}
 }
 
+// list for rsammodisplay
+static INT16 chrw_weps[NUM_WEAPONS] =
+{
+	pw_infinityring,
+	pw_automaticring,
+	pw_bouncering,
+	pw_scatterring,
+	pw_grenadering,
+	pw_explosionring,
+	pw_railring
+};
+
 // Draw crosshairs at the exact center of the view.
 // In splitscreen, crosshairs are stretched vertically to compensate for V_PERPLAYER squishing them.
 // Crosshairs are pre-cached at HU_Init
@@ -1926,6 +1938,8 @@ static inline void HU_DrawCrosshairs(void)
 {
 	INT32 cross1 = cv_crosshair.value & 3;
 	INT32 cross2 = cv_crosshair2.value & 3;
+    fixed_t progress = 0;
+    fixed_t progressrings = 0;
 
 	if (automapactive || demoplayback)
 		return;
@@ -1940,137 +1954,37 @@ static inline void HU_DrawCrosshairs(void)
 
 	if (!players[displayplayer].spectator && (!camera.chase || ticcmd_ztargetfocus[0]) && G_RingSlingerGametype())
 	{
-		switch (cv_rsammodisplay.value) {
-			case 1:
-				if (stplyr->currentweapon == 1)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_automaticring], 400);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 2)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_bouncering], 100);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10,  FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 3)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_scatterring], 50);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 4)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_grenadering], 100);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 5)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_explosionring], 50);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 6)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_railring], 50);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
+        progress = FixedDiv(stplyr->powers[chrw_weps[stplyr->currentweapon]], rw_maximums[stplyr->currentweapon]);
+        progressrings = FixedDiv(stplyr->rings, 999);
+        boolean isemptyinfring = (stplyr->currentweapon == 0 && stplyr->powers[pw_infinityring] == 0);
+        if (isemptyinfring) // tiny little hack to avoid having to nudge
+            progress = progressrings;
+        switch(cv_rsammodisplay.value)
+        {
+            case 1:
 
+                V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Shadow
+                V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
 
-				if (stplyr->currentweapon == 0)
-				{
-					if (stplyr->powers[pw_infinityring] == 0)
-					{
-						fixed_t progress = FixedDiv(stplyr->rings, 999);
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-					}
-					else
-					{
-						fixed_t progress = FixedDiv(stplyr->powers[pw_infinityring], 800);
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 11, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
+                if (!isemptyinfring) // red ring counter
+                {
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 14, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Shadow
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 15, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
+                }
+                break;
+            case 2:
+                V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(rw_maximums[stplyr->currentweapon], rw_maximums[stplyr->currentweapon]), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(rw_maximums[stplyr->currentweapon], rw_maximums[stplyr->currentweapon]), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Shadow
+                V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
 
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 15, FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 14, FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-					}
-				}
-				else
-				{
-					fixed_t progress = FixedDiv(stplyr->rings, 999);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) + 1, BASEVIDHEIGHT/2 + 15, FixedMul(progress, BASEVIDWIDTH / 4), 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 14, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-			break;
-
-			case 2:
-				if (stplyr->currentweapon == 1)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_automaticring], 400);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(400, 400), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(400, 400), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 2)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_bouncering], 100);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(100, 100), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(100, 100), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10,  FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 3)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_scatterring], 50);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(50, 50), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(50, 50), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 4)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_grenadering], 100);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(100, 100), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(100, 100), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 5)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_explosionring], 50);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(50, 50), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(50, 50), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-				if (stplyr->currentweapon == 6)
-				{
-					fixed_t progress = FixedDiv(stplyr->powers[pw_railring], 50);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(50, 50), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(50, 50), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-
-
-				if (stplyr->currentweapon == 0)
-				{
-					if (stplyr->powers[pw_infinityring] == 0)
-					{
-						fixed_t progress = FixedDiv(stplyr->rings, 999);
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-					}
-					else
-					{
-						fixed_t progress = FixedDiv(stplyr->powers[pw_infinityring], 800);
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(800, 800), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(800, 800), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 15, FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 16, FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-					}
-				}
-				else
-				{
-					fixed_t progress = FixedDiv(stplyr->rings, 999);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 15, FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 16, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
-				}
-			break;
-		}
+                if (!isemptyinfring) // red ring counter
+                {
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 14, FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Shadow
+                    V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progressrings, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 15, FixedMul(progressrings, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Ammo line
+                }
+                break;
+            default:
+                break;
+        }
 	}
 }
 

@@ -448,6 +448,11 @@ consvar_t cv_digitaldeadzone2 = CVAR_INIT ("joy_digdeadzone2", "0.25", CV_FLOAT|
 // disable wipes entirely
 consvar_t cv_wipes = CVAR_INIT ("wipes", "On", CV_SAVE|CV_CLIENT, CV_OnOff, NULL);
 
+static CV_PossibleValue_t rsammodisplay_cons_t[] = {
+	{0, "Off"}, {1, "Bar"}, {2, "Fill"}, {0, NULL}
+};
+consvar_t cv_rsammodisplay = CVAR_INIT ("rsammodisplay", "Bar", CV_SAVE|CV_CLIENT, rsammodisplay_cons_t, NULL);
+
 player_t *seenplayer; // player we're aiming at right now
 
 // now automatically allocated in D_RegisterClientCommands
