@@ -176,6 +176,7 @@ consvar_t cv_translucenthud = CVAR_INIT ("translucenthud", "10", CV_SAVE, transl
 consvar_t cv_moviemodeinfo = CVAR_INIT ("moviemodeinfo", "Yes", CV_ALLOWLUA|CV_CLIENT,  CV_YesNo, NULL);
 consvar_t cv_rsammodisplay = CVAR_INIT ("rsammodisplay", "Bar", CV_SAVE|CV_CLIENT, rsammodisplay_cons_t, NULL);
 consvar_t cv_versiondisplay = CVAR_INIT ("versiondisplay", "BlendKitty Edition", CV_SAVE|CV_CLIENT, versiondisplay_cons_t, NULL);
+consvar_t cv_discordrpc = CVAR_INIT ("discordrpc", "Off", CV_SAVE|CV_CLIENT, CV_OnOff, NULL);
 
 consvar_t cv_translucency = CVAR_INIT ("translucency", "On", CV_SAVE, CV_OnOff, NULL);
 consvar_t cv_drawdist = CVAR_INIT ("drawdist", "Infinite", CV_SAVE, drawdist_cons_t, NULL);
@@ -1724,6 +1725,7 @@ void R_RegisterEngineStuff(void)
 	CV_RegisterVar(&cv_showhud);
 	CV_RegisterVar(&cv_rsammodisplay);
 	CV_RegisterVar(&cv_versiondisplay);
+	CV_RegisterVar(&cv_discordrpc);
 	CV_RegisterVar(&cv_translucenthud);
     CV_RegisterVar(&cv_moviemodeinfo);
     

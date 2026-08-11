@@ -131,6 +131,7 @@ extern consvar_t cv_ffloorclip, cv_spriteclip;
 extern consvar_t cv_secbright;
 extern consvar_t cv_rsammodisplay;
 extern consvar_t cv_versiondisplay;
+extern consvar_t cv_discordrpc;
 
 extern consvar_t cv_flashes;
 
