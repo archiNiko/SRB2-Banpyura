@@ -2056,18 +2056,18 @@ static inline void HU_DrawCrosshairs(void)
 					else
 					{
 						fixed_t progress = FixedDiv(stplyr->powers[pw_infinityring], 800);
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(progress, BASEVIDWIDTH / 4) + 2, 3, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
+						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(800, 800), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 9, FixedMul(FixedDiv(800, 800), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
 						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 10, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
 
-						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 15, FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
+						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 15, FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
 						V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 16, FixedMul(FixedDiv(stplyr->rings, 999), BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
 					}
 				}
 				else
 				{
 					fixed_t progress = FixedDiv(stplyr->rings, 999);
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(1, BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 14, FixedMul(1, BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
-					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(1, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 15, FixedMul(1, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
+					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) / 2)) - 1, BASEVIDHEIGHT/2 + 15, FixedMul(FixedDiv(999, 999), BASEVIDWIDTH / 4) + 2, 5, 31|V_TRANSLUCENT); // Drawing that DAMN shadow
+					V_DrawFill(((BASEVIDWIDTH/2) - (FixedMul(progress, BASEVIDWIDTH / 4) / 2)), BASEVIDHEIGHT/2 + 16, FixedMul(progress, BASEVIDWIDTH / 4), 3, 0|V_TRANSLUCENT); // Drawing that DAMN ammo line
 				}
 			break;
 		}
