@@ -1,13 +1,15 @@
-# Sonic Robo Blast 2 Banpyura
+# Sonic Robo Blast 2 BlendKitty Edition
 
 <img width="215" height="215" alt="srb2" src="https://github.com/user-attachments/assets/2ef6dbae-e755-4e60-b20b-9d4cda4466ae" />
 
-SRB2 Banpyura is a custom netgame compatible Sonic Robo Blast 2 build that includes a plethora of fixes, improvements, and new features fully based on contributions and other changes the community made, but still holding modding accuracy with SRB2 Vanilla.
+SRB2 BlendKitty Edition is a netgame compatible Sonic Robo Blast 2 build based off of SRB2 Banpyura that's essentially just me messing around.
 
 > [!CAUTION]
-> I (GLide KS) do not assume any responsibility for add-ons loaded locally (feature introduced in SRB2 Kart Saturn, ported to SRB2-Banpyura). If you choose to load or use add-ons for malicious or harmful purposes, you're completely on your own responsibility.
+> No one associated with this build assumes any responsibility for add-ons loaded locally (feature introduced in SRB2 Kart Saturn, ported to SRB2 Banpyura). If you choose to load or use add-ons for malicious or harmful purposes, you're completely on your own responsibility.
 
 Icon credits goes to ClovesCloestarSRB2 and his addon [New Springs](https://mb.srb2.org/addons/new-springs.8942/) from the base spring.
+
+# Banpyura Stuff
 
 ## Features
 
@@ -64,11 +66,17 @@ Icon credits goes to ClovesCloestarSRB2 and his addon [New Springs](https://mb.s
 
 **Most of these options can be found in the menu under Banpyura Options....**
 
+# BlendKitty Stuff
+
+## Features
+
+### HUD/Menus
+- Super cool ammo bar I made myself!!!!
+- Thats it!!!!!
+
 # Installation:
 
-- You can either use the Github Actions build (go to the Actions tab on the top, then select the one that corresponds to your platform; x64 Windows builds require - different DLLs)
-- Compile from the source code.
-- [Download the latest build from nightly.link (x86)](https://nightly.link/GLideKS/SRB2-Banpyura/workflows/windows-x86-makefile/vanilla-master?preview)
+- Compile from the source code. I don't wanna do a releases thing since this build isn't intended to be something used by anyone but me. 
 
 # Screenshots / GIFs
 

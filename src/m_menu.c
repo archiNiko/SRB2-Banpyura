@@ -1579,12 +1579,18 @@ static menuitem_t OP_P2BanpyuraOptionsMenu[] =
 };
 
 //End of Banpyura Options
-// And the start of BlendKitty's cooler options!!! (it's literally just nothing	 right now.)
+// And the start of BlendKitty's cooler options!!!
 
 static menuitem_t OP_BlendKittyOptionsMenu[] =
 {
 	{IT_HEADER, 				NULL, "Heads-Up Display", 			       NULL,		        0},
 	{IT_STRING | IT_CVAR,		NULL, "Ring Slinger Ammo Bar",         &cv_rsammodisplay,   6},
+
+	{IT_HEADER, 				NULL, "Menus", 			       NULL,		        16},
+	{IT_STRING | IT_CVAR,		NULL, "Version Display",       &cv_versiondisplay,   22},
+
+	{IT_HEADER, 				NULL, "Other", 			       NULL,		        32},
+	{IT_STRING | IT_CVAR,		NULL, "Discord RPC",       &cv_discordrpc,   38},
 };
 
 static menuitem_t OP_ScreenshotOptionsMenu[] =
@@ -3735,7 +3741,19 @@ void M_Drawer(void)
 				V_DrawThinString(vid.dup, vid.height - 17*vid.dup, V_NOSCALESTART|V_TRANSLUCENT|V_ALLOWLOWERCASE, compbranch);
 				V_DrawThinString(vid.dup, vid.height -  9*vid.dup, V_NOSCALESTART|V_TRANSLUCENT|V_ALLOWLOWERCASE, comprevision);
 #else // Regular build
-				V_DrawThinString(vid.dup, vid.height -  9*vid.dup, V_NOSCALESTART|V_40TRANS|V_ALLOWLOWERCASE, "\x88""BlendKitty's Fork ""\x80"VERSIONSTRING);
+				switch (cv_versiondisplay.value) {
+					case 1:
+						V_DrawThinString(vid.dup, vid.height -  9*vid.dup, V_NOSCALESTART|V_40TRANS|V_ALLOWLOWERCASE, "\x88""BlendKitty Edition ""\x80"VERSIONSTRING);
+					break;
+					
+					case 2:
+						V_DrawThinString(vid.dup, vid.height -  9*vid.dup, V_NOSCALESTART|V_40TRANS|V_ALLOWLOWERCASE, "\x88""BlendKitty's Fork ""\x80"VERSIONSTRING);
+					break;
+
+					case 3:
+						V_DrawThinString(vid.dup, vid.height -  9*vid.dup, V_NOSCALESTART|V_40TRANS|V_ALLOWLOWERCASE, "\x88""BKE ""\x80"VERSIONSTRING);
+					break;
+				}
 #endif
 			}
 		}
