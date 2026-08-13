@@ -128,9 +128,10 @@ static void Command_Freeslots_f(void);
 static void Command_Map_f(void);
 static void Command_ResetCamera_f(void);
 
-static void Command_Addfilelocal(void);
 static void Command_Addfile(void);
+static void Command_Addfilelocal(void);
 static void Command_Addfolder(void);
+static void Command_Addfolderlocal(void);
 static void Command_ListWADS_f(void);
 static void Command_RunSOC(void);
 static void Command_Pause(void);
@@ -406,6 +407,8 @@ consvar_t cv_freedemocamera = CVAR_INIT("freedemocamera", "Off", CV_SAVE, CV_OnO
 // NOTE: this should be in hw_main.c, but we can't put it there as it breaks dedicated build
 consvar_t cv_glallowshaders = CVAR_INIT ("gr_allowcustomshaders", "On", CV_NETVAR, CV_OnOff, NULL);
 
+consvar_t cv_showaddoninfo = CVAR_INIT ("showaddoninfo", "On", CV_SAVE|CV_CLIENT, CV_OnOff, NULL);
+
 static CV_PossibleValue_t cvarinfo_const_t[] = {{0, "Show All"}, {1, "Hide Origin"}, {2, "Hide Flags"}, {3, "Only Show Values"}, {0, NULL}};
 consvar_t cv_cvarinformation = CVAR_INIT ("cvarinfo", "Show All", CV_SAVE|CV_CLIENT, cvarinfo_const_t, NULL);
 
@@ -517,6 +520,7 @@ void D_RegisterServerCommands(void)
 	COM_AddCommand("addfolder", Command_Addfolder, COM_LUA);
 	COM_AddCommand("addfile", Command_Addfile, COM_LUA);
 	COM_AddCommand("addfilelocal", Command_Addfilelocal, COM_LUA|COM_CLIENT);
+	COM_AddCommand("addfolderlocal", Command_Addfolderlocal, COM_LUA|COM_CLIENT);
 	COM_AddCommand("listwad", Command_ListWADS_f, COM_LUA);
 
 	COM_AddCommand("runsoc", Command_RunSOC, COM_LUA);
@@ -548,6 +552,9 @@ void D_RegisterServerCommands(void)
 	AddMServCommands();
 
 	CV_RegisterVar(&cv_glallowshaders);
+
+	// server info
+	CV_RegisterVar(&cv_showaddoninfo);
 
 	// p_mobj.c
 	CV_RegisterVar(&cv_itemrespawntime);
@@ -1304,6 +1311,9 @@ static void SendNameAndColor(void)
 	char *p;
 
 	p = buf;
+
+	if (dedicated)
+		return;
 
 	// don't allow inaccessible colors
 	if (!skincolors[cv_playercolor.value].accessible)
@@ -3665,7 +3675,7 @@ static void Command_Addfilelocal(void)
 
 	if (COM_Argc() != 2)
 	{
-		CONS_Printf(M_GetText("addfilelocal <wadfile.wad>: load wad file\n"));
+		CONS_Printf(M_GetText("addfilelocal <filename.pk3/wad/lua/soc>: Load add-on locally\n"));
 		return;
 	}
 	else
@@ -3806,6 +3816,28 @@ static void Command_Addfolder(void)
 		else
 			SendNetXCmd(XD_ADDFOLDER, buf, buf_p - buf);
 	}
+}
+
+// similar to addfilelocal but for folder addons
+static void Command_Addfolderlocal(void)
+{
+	const char *fn;
+	INT32 i;
+
+	if (COM_Argc() != 2)
+	{
+		CONS_Printf(M_GetText("addfolderlocal <path>: Load add-on locally\n"));
+		return;
+	}
+	else
+		fn = COM_Argv(1);
+
+	// Disallow non-printing characters and semicolons.
+	for (i = 0; fn[i] != '\0'; i++)
+		if (!isprint(fn[i]) || fn[i] == ';')
+			return;
+
+	P_AddFolderLocal(fn);
 }
 
 static void Got_RequestAddfilecmd(UINT8 **cp, INT32 playernum)

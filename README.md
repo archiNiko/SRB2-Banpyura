@@ -15,7 +15,7 @@ Icon credits goes to ClovesCloestarSRB2 and his addon [New Springs](https://mb.s
 
 ### HUD/Menus
 
-- Toggle screen fades (`wipes`). Not effective in Marathon Run.
+- Toggle screen fades using `wipes`. Not effective in Marathon Run.
 - Lots of chat tweaks! Window positioning, snapping, copy-paste, selection, customizable opacity, and more.
 - Menu tweaks! background color, text case switching, selection color.
 - Extra camera options: Exact aiming, Clipping style, Gamepad Camera sensitivity
@@ -36,6 +36,7 @@ Icon credits goes to ClovesCloestarSRB2 and his addon [New Springs](https://mb.s
 - Splat interpolation (SRB2-edit)
 - Added 1360x768 resolution (personal use)
 - `r_secbright` Configurable minimum sector brightress (SRB2-Legacy)
+- Readded 2.1 sprite shadows! Enabled using `shadow Sprite` in OpenGL. (SRB2-Legacy)
 
 ### Gameplay / Netplay
 
@@ -52,7 +53,7 @@ Icon credits goes to ClovesCloestarSRB2 and his addon [New Springs](https://mb.s
 ### Miscellaneous
 
 - Improved GIF recording.
-- The game now goes to the title or drops a warning instead of crashing on the following situations: `Invalid sector number %u from server`, `Invalid line number %u from server`, `Savegame corrupted`, `polyobj count inconsistency`, SOCK_Send errors.
+- The game now goes to the title or drops a warning instead of crashing on the following situations: `Invalid sector number from server`, `Invalid line number from server`, `Savegame corrupted`, `polyobj count inconsistency`, SOCK_Send errors.
 - `saveaddons` saves the current addon order to be loaded as a console script. Useful for quickly testing addon lists locally for servers.
 - Don't reset chasecam and do not run special stage wipe on resync (Jisk, Lugent)
 - Fixed chats not being saved on the logs in Linux systems
@@ -62,7 +63,7 @@ Icon credits goes to ClovesCloestarSRB2 and his addon [New Springs](https://mb.s
 - Doing merely `<cvar>` has the same effect as `help <cvar>`.
 - Console variable information is more in-depth.
 - - You can choose to hide certain sections via `cvarinfo` ("Show All" by default).
-- See the amount of freeslots using `freeslots`.
+- See the amount of used freeslots using `freeslots`.
 
 **Most of these options can be found in the menu under Banpyura Options....**
 
