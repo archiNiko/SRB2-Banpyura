@@ -36,8 +36,8 @@ opts+=-DHAVE_PNG
 sources+=apng.c
 
 ifdef HAVE_LIBAV
-OPTS+=-DHAVE_LIBAV
-LIBS+=-lavcodec -lavformat -lavutil -lswresample -lswscale
+opts+=-DHAVE_LIBAV
+libs+=-lavcodec -lavformat -lavutil -lswresample -lswscale
 endif
 
 ifndef NOCURL
