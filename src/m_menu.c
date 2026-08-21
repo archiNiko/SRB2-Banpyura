@@ -354,7 +354,7 @@ static void M_BanpyuraReportIssue(void);
 
 //BlendKitty's Cooler Options >:3
 menu_t OP_BlendKittyOptionsDef;
-static void M_BlendKittyOpenWebsite();
+static void M_BlendKittyOpenWebsite(void);
 
 static void M_Addons(INT32 choice);
 static void M_AddonsOptions(INT32 choice);
@@ -13345,7 +13345,7 @@ static void M_BanpyuraReportIssue(void)
 #endif
 }
 
-static void M_BlendKittyOpenWebsite()
+static void M_BlendKittyOpenWebsite(void)
 {
 #if defined(HAVE_SDL)
 #if SDL_VERSION_ATLEAST(2,0,14)

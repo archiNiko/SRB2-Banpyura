@@ -883,11 +883,13 @@ boolean VideoEncoder_Start(char *filename)
 
 	return true;
 #else
+	(void)filename; // shut up gcc
+
 	return false;
 #endif
 }
 
-#ifdef HWRENDER
+#if (defined(HWRENDER) && defined(HAVE_LIBAV))
 static colorlookup_t encoder_colorlookup;
 #endif
 

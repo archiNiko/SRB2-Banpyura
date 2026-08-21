@@ -1137,6 +1137,30 @@ static boolean M_SetupaPNG(png_const_charp filename, const UINT8 *palette)
 	png_set_user_limits(apng_ptr, MAXVIDWIDTH, MAXVIDHEIGHT);
 #endif
 
+	//png_set_filter(apng_ptr, 0, PNG_ALL_FILTERS);
+
+	png_set_compression_level(apng_ptr, cv_zlib_levela.value);
+	png_set_compression_mem_level(apng_ptr, cv_zlib_memorya.value);
+	png_set_compression_strategy(apng_ptr, cv_zlib_strategya.value);
+	png_set_compression_window_bits(apng_ptr, cv_zlib_window_bitsa.value);
+
+	M_PNGhdr(apng_ptr, apng_info_ptr, vid.width / downscale, vid.height / downscale, pal);
+
+	M_PNGText(apng_ptr, apng_info_ptr, true);
+
+	apng_set_set_acTL_fn(apng_ptr, apng_ainfo_ptr, aPNG_set_acTL);
+
+	apng_set_acTL(apng_ptr, apng_info_ptr, apng_ainfo_ptr, PNG_UINT_31_MAX, 0);
+
+	apng_write_info(apng_ptr, apng_info_ptr, apng_ainfo_ptr);
+
+	apng_frames = 0;
+
+	return true;
+}
+#endif
+#endif
+
 // ==========================================================================
 //                             VIDEO ENCODING
 // ==========================================================================
@@ -1184,7 +1208,7 @@ static const char *M_GetVideoFormatName(moviemode_t format)
 	}
 	return "Unknown";
 }
-
+#ifdef HAVE_LIBAV
 static const char *M_GetVideoFormatExtension(moviemode_t format)
 {
 	switch (format)
@@ -1206,29 +1230,6 @@ static const char *M_GetVideoFormatExtension(moviemode_t format)
 	}
 	return "xxx";
 }
-
-	//png_set_filter(apng_ptr, 0, PNG_ALL_FILTERS);
-
-	png_set_compression_level(apng_ptr, cv_zlib_levela.value);
-	png_set_compression_mem_level(apng_ptr, cv_zlib_memorya.value);
-	png_set_compression_strategy(apng_ptr, cv_zlib_strategya.value);
-	png_set_compression_window_bits(apng_ptr, cv_zlib_window_bitsa.value);
-
-	M_PNGhdr(apng_ptr, apng_info_ptr, vid.width / downscale, vid.height / downscale, pal);
-
-	M_PNGText(apng_ptr, apng_info_ptr, true);
-
-	apng_set_set_acTL_fn(apng_ptr, apng_ainfo_ptr, aPNG_set_acTL);
-
-	apng_set_acTL(apng_ptr, apng_info_ptr, apng_ainfo_ptr, PNG_UINT_31_MAX, 0);
-
-	apng_write_info(apng_ptr, apng_info_ptr, apng_ainfo_ptr);
-
-	apng_frames = 0;
-
-	return true;
-}
-#endif
 #endif
 
 // ==========================================================================
