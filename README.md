@@ -71,6 +71,9 @@ Icon credits goes to ClovesCloestarSRB2 and his addon [New Springs](https://mb.s
 
 ## Features
 
+### GIF/Video Recording
+- Video Recording (thanks to XDF and Lactozilla!!!!)
+
 ### HUD/Menus
 - Super cool ammo bar I made myself!!!!
 - Thats it!!!!!

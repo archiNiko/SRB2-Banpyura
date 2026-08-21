@@ -37,6 +37,7 @@ add_executable(SRB2SDL2 MACOSX_BUNDLE WIN32
 	m_random.c
 	m_tokenizer.c
 	m_queue.c
+	m_videoencoder.c
 	m_vector.c
 	info.c
 	p_ceilng.c
@@ -229,6 +230,12 @@ if ("${CMAKE_SYSTEM_NAME}" MATCHES "Darwin")
 		set(CMAKE_XCODE_ATTRIBUTE_LDPLUSPLUS "${CMAKE_BINARY_DIR}/launch-cxx")
 	endif()
 endif()
+
+if("${SRB2_CONFIG_HAVE_LIBAV}")
+	target_compile_definitions(SRB2SDL2 PRIVATE -DHAVE_LIBAV)
+	target_link_libraries(SRB2SDL2 PRIVATE avcodec avformat avutil swresample swscale)
+endif()
+
 
 # Compatibility flag with later versions of GCC
 # We should really fix our code to not need this
